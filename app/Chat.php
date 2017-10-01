@@ -7,6 +7,7 @@ use Ratchet\ConnectionInterface;
 
 class Chat implements MessageComponentInterface
 {
+    protected $clients;
     /**
      * When a new connection is opened it will be passed to this method
      * @param  ConnectionInterface $conn The socket/connection that just connected to your application
@@ -14,7 +15,7 @@ class Chat implements MessageComponentInterface
      */
     function onOpen(ConnectionInterface $conn)
     {
-        //
+        $this->clients[$conn->resourceId] = $conn;
     }
 
     /**
