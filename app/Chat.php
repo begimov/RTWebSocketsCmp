@@ -27,8 +27,11 @@ class Chat implements MessageComponentInterface
      */
     function onMessage(ConnectionInterface $conn, $msg)
     {
-        $this->users[$conn->resourceId] = json_decode($msg)->data->user;
-        var_dump($this->users);
+        $pl = json_decode($msg);
+
+        if (method_exists($this, $method = 'handle' . ucfirst($pl->event))) {
+            $this->{$method}($conn, $pl);
+        }
     }
 
     /**
@@ -51,5 +54,10 @@ class Chat implements MessageComponentInterface
     function onError(ConnectionInterface $conn, \Exception $e)
     {
         $conn->close();
+    }
+
+    protected function handleJoined($conn, $pl)
+    {
+        $this->users[$conn->resourceId] = $pl->data->user;
     }
 }
