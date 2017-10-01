@@ -53,17 +53,39 @@
       }
 
       let Chat = {
+          data () {
+              return {
+                  name: '',
+                  joined: false
+              }
+          },
           template: `
               <div>
+                <template v-if="joined">
                   <messages></messages>
                   <message-form></message-form>
                   <users></users>
+                </template>
+                <template v-else>
+                  <form action="#" @submit.prevent="join">
+                    <input type="text" id="name" v-model.trim="name" placeholder="Enter your name...">
+                    <button type="submit">Join</button>
+                  </form>
+                </template>
               </div>
           `,
           components: {
             'messages': Messages,
             'message-form': MessageForm,
             'users': Users,
+          },
+          methods: {
+              join: function () {
+                  if (!this.name) {
+                      return
+                  }
+                  this.joined = true
+              }
           }
       }
 
