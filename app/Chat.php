@@ -8,6 +8,7 @@ use Ratchet\ConnectionInterface;
 class Chat implements MessageComponentInterface
 {
     protected $clients;
+    protected $users;
     /**
      * When a new connection is opened it will be passed to this method
      * @param  ConnectionInterface $conn The socket/connection that just connected to your application
@@ -26,7 +27,8 @@ class Chat implements MessageComponentInterface
      */
     function onMessage(ConnectionInterface $conn, $msg)
     {
-        //
+        $this->users[$conn->resourceId] = json_decode($msg)->data->user;
+        var_dump($this->users);
     }
 
     /**
