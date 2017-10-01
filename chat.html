@@ -84,6 +84,15 @@
                   if (!this.name) {
                       return
                   }
+                  socket.send(JSON.stringify({
+                      event: 'joined',
+                      data: {
+                          user: {
+                              id: Date.now(),
+                              name: this.name
+                          }
+                      }
+                  }))
                   this.joined = true
               }
           }
