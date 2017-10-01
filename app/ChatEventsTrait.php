@@ -13,7 +13,9 @@ trait ChatEventsTrait
         foreach ($this->clients as $key => $client) {
             $client->send(json_encode([
                 'event' => 'joined',
-                'data' => $pl->data->user
+                'data' => [
+                  'user' => $pl->data->user
+                ]
             ]));
         }
     }

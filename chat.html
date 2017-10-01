@@ -43,18 +43,29 @@
       }
 
       let Users = {
+          data () {
+              return {
+                  users: []
+              }
+          },
           template: `
               <div>
-                Online users: №
+                Online users: {{ users.length }}
                 <ul>
-                  <li>Name</li>
+                  <li v-for="user in users">{{ user.name }}</li>
                 </ul>
+                {{ users }}
               </div>
           `,
           mounted () {
               bus.$on('joined', (data) => {
-                  console.log(data)
+                  this.addUser(data.user)
               })
+          },
+          methods: {
+              addUser (user) {
+                  this.users.unshift(user)
+              }
           }
       }
 
