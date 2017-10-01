@@ -10,6 +10,11 @@ trait ChatEventsTrait
     {
         $this->users[$conn->resourceId] = $pl->data->user;
 
-        var_dump($pl);
+        foreach ($this->clients as $key => $client) {
+            $client->send(json_encode([
+                'event' => 'joined',
+                'data' => $pl->data->user
+            ]));
+        }
     }
 }

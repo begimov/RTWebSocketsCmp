@@ -49,7 +49,12 @@
                   <li>Name</li>
                 </ul>
               </div>
-          `
+          `,
+          mounted () {
+              socket.onmessage = (e) => {
+                  console.log(e)
+              }
+          }
       }
 
       let Chat = {
