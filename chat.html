@@ -12,6 +12,7 @@
 
     <script src="https://unpkg.com/vue"></script>
     <script>
+      let bus = new Vue()
       let socket = new WebSocket('ws://localhost:8080')
 
       let Message = {
@@ -51,9 +52,9 @@
               </div>
           `,
           mounted () {
-              socket.onmessage = (e) => {
-                  console.log(e)
-              }
+              bus.$on('joined', (data) => {
+                  console.log(data)
+              })
           }
       }
 
@@ -99,6 +100,12 @@
                       }
                   }))
                   this.joined = true
+              }
+          },
+          mounted () {
+              socket.onmessage = (e) => {
+                  let data  = JSON.parse(e.data)
+                  bus.$emit(data.event, data.data)
               }
           }
       }
