@@ -6,21 +6,53 @@
   </head>
   <body>
 
+    <div id="app">
+      <chat></chat>
+    </div>
+
+    <script src="https://unpkg.com/vue"></script>
     <script>
       let socket = new WebSocket('ws://localhost:8080')
 
-      setTimeout(() => {
-        socket.send(JSON.stringify({
-            event: 'joined',
-            data: {
-                user: {
-                    id: 1,
-                    name: 'Name 1'
-                }
-            }
-        }))
-      }, 2000)
+      let Messages = {
+          template: `
+              <p>Messages</p>
+          `
+      }
 
+      let MessageForm = {
+          template: `
+              <p>Message Form</p>
+          `
+      }
+
+      let Users = {
+          template: `
+              <p>Users</p>
+          `
+      }
+
+      let Chat = {
+          template: `
+              <div>
+                  <messages></messages>
+                  <message-form></message-form>
+                  <users></users>
+              </div>
+          `,
+          components: {
+            'messages': Messages,
+            'message-form': MessageForm,
+            'users': Users,
+          }
+      }
+
+      new Vue({
+          el: '#app',
+          components: {
+              'chat': Chat,  
+          }
+      })
     </script>
   </body>
 </html>
