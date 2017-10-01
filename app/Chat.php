@@ -36,7 +36,7 @@ class Chat implements MessageComponentInterface
      */
     function onClose(ConnectionInterface $conn)
     {
-        //
+        unset($this->clients[$conn->resourceId]);
     }
 
     /**
