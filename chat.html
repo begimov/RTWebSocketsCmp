@@ -61,10 +61,18 @@
               bus.$on('joined', (data) => {
                   this.addUser(data.user)
               })
+              bus.$on('left', (data) => {
+                  this.removeUser(data.user)
+              })
           },
           methods: {
               addUser (user) {
                   this.users.unshift(user)
+              },
+              removeUser (user) {
+                  this.users = this.users.filter((elem) => {
+                      return elem.id !== user.id
+                  })
               }
           }
       }
