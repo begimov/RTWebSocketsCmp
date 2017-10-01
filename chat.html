@@ -14,21 +14,41 @@
     <script>
       let socket = new WebSocket('ws://localhost:8080')
 
+      let Message = {
+          template: `
+            <div>
+              <strong>Name</strong>: Message
+            </div>
+          `
+      }
+
       let Messages = {
           template: `
-              <p>Messages</p>
-          `
+            <div>
+              <message></message>
+            </div>
+          `,
+          components: {
+              'message': Message
+          }
       }
 
       let MessageForm = {
           template: `
-              <p>Message Form</p>
+              <form action="#">
+                <textarea placeholder="Enter your message..."></textarea>
+              </form>
           `
       }
 
       let Users = {
           template: `
-              <p>Users</p>
+              <div>
+                Online users: №
+                <ul>
+                  <li>Name</li>
+                </ul>
+              </div>
           `
       }
 
@@ -50,7 +70,7 @@
       new Vue({
           el: '#app',
           components: {
-              'chat': Chat,  
+              'chat': Chat,
           }
       })
     </script>
