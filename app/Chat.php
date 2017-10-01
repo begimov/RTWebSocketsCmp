@@ -7,6 +7,8 @@ use Ratchet\ConnectionInterface;
 
 class Chat implements MessageComponentInterface
 {
+    use ChatEventsTrait;
+
     protected $clients;
     protected $users;
     /**
@@ -54,10 +56,5 @@ class Chat implements MessageComponentInterface
     function onError(ConnectionInterface $conn, \Exception $e)
     {
         $conn->close();
-    }
-
-    protected function handleJoined($conn, $pl)
-    {
-        $this->users[$conn->resourceId] = $pl->data->user;
     }
 }
